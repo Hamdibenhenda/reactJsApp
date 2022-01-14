@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import Navbar from './Components/Navbar'
+import BreadCrumbs from './Components/BreadCrumbs'
+import LeftSide from './Components/LeftSide'
+import MobileAd from './Components/MobileAd'
+import DesktopAd from './Components/DesktopAd'
+import { Row } from 'react-bootstrap';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <Row>
+           <Navbar/>
+        </Row>
+        <Row>
+           <BreadCrumbs/>
+        </Row>
+        <Row>
+           <div className='col-md-3's>
+               <LeftSide/> 
+           </div>
+           <div className='col-md-5'>
+               <DesktopAd/> 
+           </div>
+           <div className='col-md-4'>
+               <MobileAd/> 
+           </div>
+        </Row>
+
     </div>
   );
 }

@@ -1,0 +1,108 @@
+.nav-bar {
+    padding: 10px;
+    background: #000;
+
+    .user-picture {
+        overflow: hidden;
+        border-radius: 5px;
+        height: 50px;
+        position: relative;
+        display: block;
+        float: left;
+
+        img {
+            max-width: 100%;
+        }
+    }
+
+    .user-info {
+        color: #fff;
+        display: block;
+        position: relative;
+        margin-left: 10px;
+        float: left;
+
+        span {
+            display: block;
+
+            &.user-name {
+                font-size: 15px;
+            }
+
+            &.user-role {
+                font-size: 10px;
+            }
+        }
+    }
+
+    .dropdown {
+        position: absolute;
+        right: 10%;
+    }
+
+    .dropdown #dropdown-basic {
+        background: transparent;
+        border: 0;
+    }
+}
+
+.bread-crumbs {
+    min-height: 50px;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+
+    .title {
+        font-size: 13px;
+        color: #aaa;
+    }
+
+    svg {
+        stroke: #aaa;
+        width: 15px;
+    }
+
+    .steps {
+        li {
+            list-style: none;
+            display: inline-block;
+            margin: 0px 30px;
+            font-size: 13px;
+            font-weight: bold;
+            color: #aaa;
+
+            span {
+                margin: 0px 4px;
+                width: 24px;
+                height: 24px;
+                display: inline-block;
+                text-align: center;
+                position: relative;
+            }
+
+            &.active {
+                span {
+                    background: turquoise;
+                    border-radius: 100px;
+                    color: #fff;
+                    &::before {
+                        content: '';
+                        width: 30px;
+                        height: 30px;
+                        display: block;
+                        position: absolute;
+                        border: 1px solid turquoise;
+                        left: -3px;
+                        top: -3px;
+                        border-radius: 30px;
+                    }
+                }
+
+
+            }
+        }
+
+        margin: 0;
+    }
+
+}
