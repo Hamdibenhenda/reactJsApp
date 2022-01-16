@@ -28,10 +28,10 @@ function BreadCrumbs() {
 
             <div className="col-md-6">
                 <ul className="steps">
-                    <li className="active"> <span>1</span> Build </li>
-                    <li> <span>2</span> Preview </li>
-                    <li> <span>3</span> Deliver </li>
-                    <li> <span>4</span> Review </li>
+                    <li className="active"> <span>1</span> <a href="#"> Build </a> </li>
+                    <li> <span>2</span> <a href="#"> Preview </a> </li>
+                    <li> <span>3</span> <a href="#"> Deliver </a></li>
+                    <li> <span>4</span> <a href="#"> Review </a></li>
 
                 </ul>
             </div>

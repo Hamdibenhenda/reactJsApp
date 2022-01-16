@@ -14,7 +14,7 @@ function App() {
         <Row>
            <BreadCrumbs/>
         </Row>
-        <Row>
+        <Row className='mt-3 p-2'>
            <div className='col-md-3's>
                <LeftSide/> 
            </div>
