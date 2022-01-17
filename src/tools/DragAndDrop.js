@@ -1,61 +1,72 @@
 import React, { useState, useRef } from "react";
-import {Row } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes} from '@fortawesome/fontawesome-free-solid'
+import { faTimes,faCloudUploadAlt } from '@fortawesome/fontawesome-free-solid'
+import PropTypes from 'prop-types'
+import { FocusedImage, FocusPicker, Focus } from "image-focus";
+import { connect, useDispatch } from "react-redux";
+import ZoomSlider from "./ZoomSlider";
 
-import { FocusedImage, FocusPicker, Focus } from "image-focus"
+// actions
+import {
+  changePicture,
+  changePictureWidth,
+  changePictureHeight,
+} from "../store/pictures/actions"
 
-const ImageUploader = () => {
+
+const ImageUploader = props=> {
+  // const dispatch = useDispatch();
   const fileInput = useRef(null);
   const [image, setImage] = useState(null);
   let [previewUrl, setPreviewUrl] = useState("");
 
+
+  const deleteImage = () => {
+    setPreviewUrl('');
+    props.changePicture();
+    props.changePictureHeight( { x: 0, y: 0 });
+  }
+
+
   const handleFile = (file) => {
     setImage(file);
-   setPreviewUrl(URL.createObjectURL(file));
+    setPreviewUrl(URL.createObjectURL(file));
 
-   // if (setPreviewUrl(URL.createObjectURL(file))) {
-
-        
     const focusPickerEl = document.getElementById("focus-picker-img");
     const imgSrcEl = document.getElementById("image-src");
     const focusedImageElements = document.querySelectorAll(".focused-image");
 
+    const focus: Focus = { x: 0, y: 0 }
 
+    console.log(focusPickerEl);
+    props.changePicture(URL.createObjectURL(file));
+    const focusedImages: FocusedImage[] = [];
 
-            // Set our starting focus
-        const focus: Focus = { x: 0, y: 0 }
+    Array.prototype.forEach.call(focusedImageElements, (imageEl: HTMLImageElement) => {
+      focusedImages.push(
+        new FocusedImage(imageEl, {
+          focus,
+          debounceTime: 17,
+          updateOnWindowResize: true,
+        }),
+      )
+    })
 
-        // Iterate over images and instantiate FocusedImage from each
-        // pushing into an array for updates later
-        const focusedImages: FocusedImage[] = []
-        Array.prototype.forEach.call(focusedImageElements, (imageEl: HTMLImageElement) => {
-        focusedImages.push(
-            new FocusedImage(imageEl, {
-            focus,
-            debounceTime: 17,
-            updateOnWindowResize: true,
-            }),
-        )
-        })
+    const focusPicker = new FocusPicker(focusPickerEl, {
+      focus,
+      onChange: (newFocus: Focus) => {
+        const x = newFocus.x.toFixed(2)
+        const y = newFocus.y.toFixed(2);
+        
+        focus.x = newFocus.x * 50;
+        focus.y = newFocus.y * 50;
 
-        // Instantiate our FocusPicker providing starting focus
-        // and onChange callback
-        const focusPicker = new FocusPicker(focusPickerEl, {
-        focus,
-        onChange: (newFocus: Focus) => {
-            const x = newFocus.x.toFixed(2)
-            const y = newFocus.y.toFixed(2)
-            focusedImages.forEach(focusedImage => focusedImage.setFocus(newFocus))
-        },
-        })
-
-        // Add event listener for updating image sources
-        imgSrcEl.addEventListener("input", () => {
-        focusPicker.img.src = imgSrcEl.value
-        focusedImages.forEach(focusedImage => (focusedImage.img.src = imgSrcEl.value))
-        })
-      
+        console.log(focus);
+        props.changePictureHeight(focus)
+        
+        focusedImages.forEach(focusedImage => focusedImage.setFocus(newFocus));
+      },
+    })
 
   };
 
@@ -63,11 +74,10 @@ const ImageUploader = () => {
   const handleOndragOver = (event) => {
     event.preventDefault();
     event.stopPropagation()
-   // console.log("event ====>",event);
     let imageFile = event.dataTransfer.files[0];
-
-   //handleFile(imageFile);
   };
+
+  
   const handleOndrop = (event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -85,7 +95,9 @@ const ImageUploader = () => {
           onDrop={handleOndrop}
           onClick={() => fileInput.current.click()}
         >
-          <p>Click to select or Drag and drop image here....</p>
+          <p className="text-center m-0">  
+          <span className="icon"><FontAwesomeIcon icon={faCloudUploadAlt} /> </span><br/>
+          Drag file here or <br/> BROWSE </p>
           <input
             type="file"
             accept="image/*"
@@ -97,20 +109,37 @@ const ImageUploader = () => {
       )}
 
       <div className="focused-image-container">
-      {previewUrl && 
-        <div className="image-container">
-            <span  onClick={() => setPreviewUrl("") } className="btn btn-delete"> <FontAwesomeIcon icon={faTimes} />  </span>
-        </div>
-      }
-            
-        </div>  
+        {previewUrl &&
+          <div className="image-container">
+            <span onClick={() => deleteImage()} className="btn btn-delete"> <FontAwesomeIcon icon={faTimes} />  </span>
+          </div>
+        }
+       
 
-            <img id="focus-picker-img" src={previewUrl} alt="" data-focus-x="0" data-focus-y="0" /> 
-            
-            <input hidden id="image-src" type="text" defaultValue={"https://picsum.photos/2400/1400?image=1001"} />
-            {/* <img className="focused-image" src={previewUrl} data-focus-x="0" data-focus-y="0" />       */}
+      </div>
 
+      <img id="focus-picker-img" src={previewUrl} alt="" data-focus-x="0" data-focus-y="0" />      
     </div>
   );
 };
-export default ImageUploader;
+
+ImageUploader.propTypes = {
+  changePicture: PropTypes.func,
+  changePictureWidth: PropTypes.func,
+  changePictureHeight: PropTypes.func,
+
+}
+
+const mapStateToProps = state => {
+  return { ...state.Layout }
+}
+
+export default connect(mapStateToProps, {
+  changePicture,
+  changePictureWidth,
+  changePictureHeight,
+})(ImageUploader)
+
+
+
+// export default ImageUploader

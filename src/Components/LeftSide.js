@@ -1,5 +1,6 @@
 import React from "react";
 import ImageUploader from "../tools/DragAndDrop";
+import ZoomSlider from "../tools/ZoomSlider";
 import { Card, Accordion, Row } from "react-bootstrap";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -7,12 +8,9 @@ import { faImages, faAlignCenter,faImage, faParagraph } from '@fortawesome/fonta
 
 function LeftSide() {
     return (
-
     <div className="left-nav p-2">
-    
     <p className="block-title"> Ad builder (Image) </p>
-
-      <Card>
+      <Card className="custom-card">
         <Card.Body>
           <p className="sub-block-title">Layout Guide</p>
           <p className="block-description">
@@ -22,6 +20,9 @@ function LeftSide() {
           <p className="sub-block-title"> Image </p>
             <Row>
                 <ImageUploader/>
+            </Row>
+            <Row>
+              <ZoomSlider/>
             </Row>
             <p className="block-description">
             Add in you Desktop background     
