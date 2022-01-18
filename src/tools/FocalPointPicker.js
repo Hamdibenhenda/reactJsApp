@@ -1,3 +1,4 @@
+// import { mergeClasses, clamp } from '@/lib/helpers';
 import { useState, useRef, useEffect } from 'react';
 
 const HANDLE_SIZE_IN_PX = 40;
@@ -23,8 +24,12 @@ export default function FocalPointPicker({ url, focalPoint, onChange, className 
     const percentDeltaX = (movementX / width) * 100;
     const percentDeltaY = (movementY / height) * 100;
 
-    const x = Uint8ClampedArray(focalPoint.x + percentDeltaX, 0, 100);
-    const y = Uint8ClampedArray(focalPoint.y + percentDeltaY, 0, 100);
+    // const x = clamp(focalPoint.x + percentDeltaX, 0, 100);
+    // const y = clamp(focalPoint.y + percentDeltaY, 0, 100);
+
+
+    const x = focalPoint.x + percentDeltaX;
+    const y = focalPoint.y + percentDeltaY;
 
     onChange({ x, y });
   }
@@ -64,7 +69,7 @@ export default function FocalPointPicker({ url, focalPoint, onChange, className 
     };
   }, [isDragging, onChange]);
 
-  const classList = className;
+  const classList = '';
 
   return (
     <div className={classList}>

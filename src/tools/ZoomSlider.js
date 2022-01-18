@@ -10,7 +10,7 @@ export default function ZoomSlider({ onChange, zoom }) {
       <h1 className="text-sm text-black font-medium">Image zoom</h1>
       <div className="w-auto px-2 py-2 mx-auto">
         <Slider
-          value={zoom}
+          value={10}
           handleStyle={{
             backgroundColor: '#02A8B2',
             borderColor: '#02A8B2',
@@ -22,7 +22,8 @@ export default function ZoomSlider({ onChange, zoom }) {
             backgroundColor: '#5FDCE3',
           }}
           step={ZOOM_STEP}
-        />
+        >
+        </Slider>
       </div>
     </div>
   );

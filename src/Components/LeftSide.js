@@ -1,12 +1,14 @@
 import React from "react";
 import ImageUploader from "../tools/DragAndDrop";
-import ZoomSlider from "../tools/ZoomSlider";
+import ImageUploaderMobile from "../tools/DragAndDropMobile"
 import { Card, Accordion, Row } from "react-bootstrap";
-
+import {  useSelector } from "react-redux";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImages, faAlignCenter,faImage, faParagraph } from '@fortawesome/fontawesome-free-solid'
 
 function LeftSide() {
+ 
+
     return (
     <div className="left-nav p-2">
     <p className="block-title"> Ad builder (Image) </p>
@@ -21,9 +23,7 @@ function LeftSide() {
             <Row>
                 <ImageUploader/>
             </Row>
-            <Row>
-              <ZoomSlider/>
-            </Row>
+
             <p className="block-description">
             Add in you Desktop background     
         
@@ -41,8 +41,11 @@ function LeftSide() {
                <FontAwesomeIcon icon={faImages} />  <span className="ml-2" >  Mobile Background Image  </span>
                </Accordion.Header>
               <Accordion.Body>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+               
+            
+                <ImageUploaderMobile/>
+          
+        
               </Accordion.Body>
             </Accordion.Item>
             <Accordion.Item eventKey="1">

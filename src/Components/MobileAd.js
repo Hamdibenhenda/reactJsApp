@@ -1,13 +1,30 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { Card} from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faImage } from '@fortawesome/fontawesome-free-solid'
 
 function MobileAd() {
-  const previewUrl = useSelector((state) => state?.picture_url);
+  const previewUrl = useSelector((state) => state?.picture_url_mobile);
 
-  const position = useSelector((state) => state?.pictureHeight);
+  const position = useSelector((state) => state?.picture_position_mobile);
+
+  console.log('picture_position_mobile ===>',position);
+
+
+  let styles = {
+    background: "url(" + previewUrl + ")"
+  }
+  if (position.x !== 0 && position.y !== 0 ) {
+    styles = {  
+      ... styles ,                
+      backgroundPositionX : position?.x,
+      backgroundPositionY : position?.y}
+  }
+
+  console.log('picture_position_mobile ===> ',position);
+  console.log('styles_mobile ===> ',styles);
+
 
   return (
     <div className="mobile-ad  p-2">
@@ -18,12 +35,7 @@ function MobileAd() {
           {previewUrl && (
             <div
               className="image-container"
-              style={{
-                background: "url(" + previewUrl + ")",
-                backgroundPositionX: position?.x,
-                backgroundPositionY: position?.y,
-              }}
-            ></div>
+              style={styles}></div>
           )}
           {
              !previewUrl && (

@@ -2,114 +2,99 @@
 import { all, call, fork, takeEvery, put } from "redux-saga/effects"
 
 import {
-  CHANGE_PICTURE,
-  CHANGE_PICTURE_X,
-  CHANGE_PICTURE_Y,
+  CHANGE_PICTURE_DESKTOP,
+  CHANGE_PICTURE_POSITION_DESKTOP,
+  
+  CHANGE_PICTURE_MOBILE ,
+  CHANGE_PICTURE_POSITION_MOBILE
 } from "./actionTypes"
 
-import {
-  changeSidebarType as changeSidebarTypeAction,
-  changeTopbarTheme as changeTopbarThemeAction,
-} from "./actions"
 
 /**
- * Changes the body attribute
- */
-function changeBodyAttribute(attribute, value) {
-  if (document.body) document.body.setAttribute(attribute, value)
-  return true
-}
-
-/**
- * Toggle the class on body
- * @param {*} cssClass
- */
-function manageBodyClass(cssClass, action = "toggle") {
-  switch (action) {
-    case "add":
-      if (document.body) document.body.classList.add(cssClass)
-      break
-    case "remove":
-      if (document.body) document.body.classList.remove(cssClass)
-      break
-    default:
-      if (document.body) document.body.classList.toggle(cssClass)
-      break
-  }
-
-  return true
-}
-
-/**
- * Changes the layout type
+ * Changes  picture desktop
  * @param {*} param0
  */
-function* changePicture({ payload: layout }) {
-  // try {
-  //   if (layout === "horizontal") {
-  //     yield put(changeTopbarThemeAction("dark"))
-  //     document.body.removeAttribute("data-sidebar")
-  //     document.body.removeAttribute("data-sidebar-size")
-  //   } else {
-  //     yield put(changeTopbarThemeAction("light"))
-  //   }
-  //   yield call(changeBodyAttribute, "data-layout", layout)
-  // } catch (error) { }
+function* changePictureDesktop({ payload: PictureState }) {
+
 }
 
 /**
- * Changes the picture width
+ * Changes the  cursor position x of picture desktop
  * @param {*} param0
  */
-function* changepictureWidth({ payload: width }) {
+function* changePicturePositionDesktop({ payload: width }) {
   try {
     if (width ) {
      
-      yield call(changeBodyAttribute, "data-focus-x", width)
+      yield call(changePicturePositionDesktop, "data-focus-x", width)
 
     } 
   } catch (error) { }
 }
 
 /**
- * Changes the left sidebar theme
+ * Changes the  cursor position y of picture desktop
  * @param {*} param0
  */
-function* changepictureHeight({ payload: height }) {
+
+
+
+
+/**
+ * Changes  picture mobile
+ * @param {*} param0
+ */
+ function* changePictureMobile({ payload: PictureState }) {
+
+}
+
+/**
+ * Changes the  cursor position x of picture Mobile
+ * @param {*} param0
+ */
+function* changePicturePositionMobile({ payload: width }) {
   try {
-    if (height ) {
-      yield call(changeBodyAttribute, "data-focus-y", height)
+    if (width ) {
+     
+      yield call(changePicturePositionMobile, "data-focus-x", width)
 
     } 
   } catch (error) { }
 }
-
-
-
 
 /**
  * Watchers
  */
-export function* watchchangepictureType() {
-  yield takeEvery(CHANGE_PICTURE, changePicture)
+export function* watchchangePictureDesktopType() {
+  yield takeEvery(CHANGE_PICTURE_DESKTOP, changePictureDesktop)
 }
 
-export function* watchchangepictureWidth() {
-  yield takeEvery(CHANGE_PICTURE_X, changepictureWidth)
-}
-
-export function* watchchangepictureHeight() {
-  yield takeEvery(CHANGE_PICTURE_Y, changepictureHeight)
+export function* watchchangePicturePositionDesktop() {
+  yield takeEvery(CHANGE_PICTURE_POSITION_DESKTOP, changePicturePositionDesktop)
 }
 
 
-function* LayoutSaga() {
+
+export function* watchchangePictureMobileType() {
+  yield takeEvery(CHANGE_PICTURE_MOBILE, changePictureMobile)
+}
+
+export function* watchchangePicturePositionMobile() {
+  yield takeEvery(CHANGE_PICTURE_POSITION_MOBILE, changePicturePositionMobile)
+}
+
+
+
+function* PictureStateSaga() {
   yield all([
-    fork(watchchangepictureType),
-    fork(watchchangepictureWidth),
-    fork(watchchangepictureHeight),
+    fork(watchchangePictureDesktopType),
+    fork(watchchangePicturePositionDesktop),
+  
+    fork(watchchangePictureMobileType),
+    fork(watchchangePicturePositionMobile),
+ 
   
   ])
 }
 
-export default LayoutSaga
+export default PictureStateSaga

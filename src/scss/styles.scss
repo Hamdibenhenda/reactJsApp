@@ -148,6 +148,11 @@ img {
 }
 
 .left-nav {
+
+    max-height: 70vh;
+    overflow: hidden;
+    overflow-y: auto;
+
     .accordion-item {
         border: 0;
 
@@ -155,7 +160,7 @@ img {
             background-color: transparent !important;
             border: 0;
             color: #191919;
-            font-size: 15px;
+            font-size: 13px;
             box-shadow: 0px 3px 6px #00000029;
 
             span {
@@ -171,12 +176,55 @@ img {
     }
 
     .image-container {
+        .image {
+            min-height: 150px;
+            margin-bottom: 10px;
+            background-size: cover !important;
+
+            &:after {
+                width: 100%;
+                height: 150px;
+                display: block;
+                content: '';
+                position: absolute;
+                background: turquoise;
+                opacity: 0.4;
+            }
+        }
+
+        position: relative;
+
+        .btn {
+            position: absolute;
+            background: #000;
+            color: #fff;
+            z-index: 99;
+            top: 55px;
+            font-size: 13px;
+
+            &:hover {
+                background: turquoise;
+            }
+
+            &.edit-focalpoint {
+                left: 60px;
+            }
+
+            &.uploadimage {
+                right: 60px;
+            }
+        }
+
         .btn-delete {
             position: absolute;
             color: #fff;
-            background: rgb(0 0 0 / 40%);
+            z-index: 99;
+            right: 5px;
+            cursor: pointer;
         }
+
     }
+
 
     .drop_zone {
         padding: 10%;
@@ -194,11 +242,11 @@ img {
     .card {
         box-shadow: 0px 3px 6px #00000029;
         border: 0;
-        min-height: 360px;
-        max-height: 360px;
+
         .card-body {
             align-items: center;
             justify-content: center;
+            padding: 0px 0px 1rem;
         }
     }
 
@@ -218,5 +266,34 @@ img {
 .zoom-slider {
     h1 {
         font-size: 12px !important;
+    }
+}
+
+.hidden {
+    display: none !important;
+}
+
+.mobile-wrapper .btn.edit-focalpoint {
+    left: 35% !important;
+}
+
+.buttons-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0px;
+    border-top: 1px solid #aaa;
+    padding-top: 10px;
+
+    .btn {
+        background: transparent;
+        color: #000;
+        border: 1px solid;
+        font-size: 12px;
+
+        &:hover {
+            background: turquoise;
+            border-color: turquoise;
+        }
     }
 }
