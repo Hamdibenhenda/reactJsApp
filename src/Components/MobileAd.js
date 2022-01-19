@@ -9,21 +9,21 @@ function MobileAd() {
 
   const position = useSelector((state) => state?.picture_position_mobile);
 
-  console.log('picture_position_mobile ===>',position);
+  // let styles = {
+  //   background: "url(" + previewUrl + ")"
+  // }
+  // if (position.x !== 0 && position.y !== 0 ) {
+  //   styles = {  
+  //     ... styles ,                
+  //     backgroundPositionX : position?.x,
+  //     backgroundPositionY : position?.y}
+  // }
 
-
-  let styles = {
-    background: "url(" + previewUrl + ")"
+    let styles = {
+    background: `url('${previewUrl}') ${-position.x}px ${-position.y}px`
   }
-  if (position.x !== 0 && position.y !== 0 ) {
-    styles = {  
-      ... styles ,                
-      backgroundPositionX : position?.x,
-      backgroundPositionY : position?.y}
-  }
 
-  console.log('picture_position_mobile ===> ',position);
-  console.log('styles_mobile ===> ',styles);
+    console.log('styles_mobile ===> ',styles);
 
 
   return (
@@ -37,10 +37,11 @@ function MobileAd() {
               className="image-container"
               style={styles}></div>
           )}
-          {
-             !previewUrl && (
-               <FontAwesomeIcon icon={faImage} />
-             )
+          {!previewUrl && (
+            <div className="empty-card" >
+              <FontAwesomeIcon icon={faImage} />
+            </div> 
+            )
           }
         </Card.Body>
       </Card>

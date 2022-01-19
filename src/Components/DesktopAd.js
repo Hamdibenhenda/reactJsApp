@@ -10,17 +10,20 @@ function DesktopAd() {
 
   const position = useSelector((state) => state?.picture_position_desktop);
 
+  // let styles = {
+  //   background: "url(" + previewUrl + ")"
+  // }
+  // if (position.x !== 0 && position.y !== 0 ) {
+  //   styles = {  
+  //     ... styles ,               
+  //     backgroundPositionX : position?.x,
+  //     backgroundPositionY : position?.y}
+  // }
+
   let styles = {
-    background: "url(" + previewUrl + ")"
-  }
-  if (position.x !== 0 && position.y !== 0 ) {
-    styles = {  
-      ... styles ,               
-      backgroundPositionX : position?.x,
-      backgroundPositionY : position?.y}
+    background: `url('${previewUrl}') ${-position.x}px ${-position.y}px`
   }
 
-  console.log('picture_position_desktop ===> ',position);
   console.log('styles_desktop ===> ',styles);
 
 
@@ -34,10 +37,10 @@ function DesktopAd() {
               className="image-container"
               style={styles}></div>
           )}
-          {
-             !previewUrl && (
-               <FontAwesomeIcon icon={faImage} />
-             )
+          {!previewUrl && (
+              <div className="empty-card" >
+              <FontAwesomeIcon icon={faImage} />
+              </div>)
           }
         </Card.Body>
       </Card>

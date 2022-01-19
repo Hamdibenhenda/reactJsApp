@@ -1,3 +1,15 @@
+
+html {
+    &::-webkit-scrollbar-thumb {
+        background: #aaa;
+        overflow: visible;
+        border-radius: 4px;
+      }
+      &::-webkit-scrollbar {
+        width: 0.4em;
+      }  
+}
+
 .row {
     margin: 0;
 }
@@ -149,9 +161,20 @@ img {
 
 .left-nav {
 
-    max-height: 70vh;
+    max-height: 100vh;
+    min-height: 100vh;
     overflow: hidden;
     overflow-y: auto;
+    overflow-x: hidden;
+
+    &::-webkit-scrollbar-thumb {
+      background: #aaa;
+      overflow: visible;
+      border-radius: 4px;
+    }
+    &::-webkit-scrollbar {
+      width: 0.4em;
+    }
 
     .accordion-item {
         border: 0;
@@ -296,4 +319,11 @@ img {
             border-color: turquoise;
         }
     }
+}
+
+.empty-card {
+    min-height: 330px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

@@ -4,7 +4,7 @@ import { FocusedImage, FocusPicker, Focus } from "image-focus";
 import { connect, useSelector } from "react-redux";
 import ZoomSlider from "./ZoomSlider";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes,faTimesCircle, faCloudUploadAlt } from '@fortawesome/fontawesome-free-solid';
+import { faImage } from '@fortawesome/fontawesome-free-solid';
 import { Row } from "react-bootstrap";
 
 import {
@@ -22,16 +22,6 @@ const ImageUploaderMobile = props => {
 
 
   const previewUrl = useSelector((state) => state?.picture_url_mobile);
-
-  const position = useSelector((state) => state?.pictureHeight_mobile);
-
-  const deleteImage = () => {
- 
-    props.changePicturePositionMobile({ x: 0, y: 0 });
-    // props.changePictureMobileHeight({ x: 0, y: 0 });
-  }
-
-
 
 
   const FocalPointPickerMobile = () => {
@@ -65,7 +55,6 @@ const ImageUploaderMobile = props => {
         <div className={(showFocalPointMobile === false ? 'show' : 'hidden')}>            
             {previewUrl &&
               <div className="image-container">
-                <span onClick={() => deleteImage()} className="btn-delete"> <FontAwesomeIcon icon={faTimesCircle} />  </span>
                 <span className="btn edit-focalpoint" onClick={() => ( FocalPointPickerMobile () ) }> Edit </span>
                 <div  className="image" 
                 style={{background: "url(" + previewUrl + ")"}}>
@@ -98,6 +87,12 @@ const ImageUploaderMobile = props => {
         </div>
        } 
 
+       {!previewUrl && (
+                        <div className="empty-card" >
+                        <FontAwesomeIcon icon={faImage} />
+                        </div>
+        )
+       }
     </div>
   );
 };
